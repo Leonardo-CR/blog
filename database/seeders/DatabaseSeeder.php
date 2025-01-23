@@ -11,6 +11,7 @@ use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,9 +20,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $directory = storage_path('app/public/posts');
 
-        
-        Storage::makeDirectory('public/posts');
+        File::deleteDirectory($directory);
+        File::makeDirectory($directory,0755, true);
 
         Category::factory(4)->create();
         Tag::factory(8)->create();
